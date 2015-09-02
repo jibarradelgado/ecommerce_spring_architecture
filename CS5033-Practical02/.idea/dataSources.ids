@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - ecommerce@localhost" uuid="c94418d5-611c-4936-88e6-5cac5b2044c7">
+    <database-info product="MySQL" version="5.6.24" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="upper"/>
+    <schema name="" catalog="ecommerce"/>
+    <table name="address" schema="" catalog="ecommerce" type="TABLE">
+      <column name="address_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="address" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="address2" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="location_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="postal_code" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_update" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="address_id"/>
+      <exported-key name="address_book_address_fk" table="address_book" schema="" catalog="ecommerce" columns="address_id"/>
+      <exported-key name="administrator_address_fk" table="administrator" schema="" catalog="ecommerce" columns="address_id"/>
+      <exported-key name="payment_method_address_fk" table="payment_method" schema="" catalog="ecommerce" columns="billing_address"/>
+      <exported-key name="store_address_fk" table="store" schema="" catalog="ecommerce" columns="address_id"/>
+      <index name="city_id_idx" unique="false" columns="location_id"/>
+    </table>
+    <table name="address_book" schema="" catalog="ecommerce" type="TABLE">
+      <column name="customer_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="address_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="customer_id,address_id"/>
+      <foreign-key name="address_book_address_fk" columns="address_id" ref-table="address" ref-schema="" ref-catalog="ecommerce" ref-columns="address_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="address_book_customer_fk" columns="customer_id" ref-table="customer" ref-schema="" ref-catalog="ecommerce" ref-columns="customer_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="address_id_idx" unique="false" columns="address_id"/>
+    </table>
+    <table name="administrator" schema="" catalog="ecommerce" type="TABLE">
+      <column name="administrator_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="username" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="fist_name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="address_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="create_date" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="last_update" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="administrator_id"/>
+      <foreign-key name="administrator_address_fk" columns="address_id" ref-table="address" ref-schema="" ref-catalog="ecommerce" ref-columns="address_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="address_id_idx" unique="false" columns="address_id"/>
+    </table>
+    <table name="customer" schema="" catalog="ecommerce" type="TABLE">
+      <column name="customer_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="first_name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="username" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="create_date" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="last_update" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="customer_id"/>
+      <exported-key name="address_book_customer_fk" table="address_book" schema="" catalog="ecommerce" columns="customer_id"/>
+      <exported-key name="order_customer_fk" table="order" schema="" catalog="ecommerce" columns="customer_id"/>
+      <exported-key name="payment_method_customer_fk" table="payment_method" schema="" catalog="ecommerce" columns="customer_id"/>
+      <exported-key name="shopping_cart_customer_fk" table="shopping_cart" schema="" catalog="ecommerce" columns="customer_id"/>
+    </table>
+    <table name="location" schema="" catalog="ecommerce" type="TABLE">
+      <column name="location_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <column name="location_type" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" remarks="MDpjb3VudHJ5LDE6c3RhdGUsMjpjaXR5"/>
+      <column name="parent_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="cGFyZW50IGxvY2F0aW9uX2lk"/>
+      <column name="is_visible" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" remarks="MDp2aXNpYmxlLDE6aW52aXNpYmxl"/>
+      <primary-key name="PRIMARY" columns="location_id"/>
+    </table>
+    <table name="order" schema="" catalog="ecommerce" type="TABLE">
+      <column name="order_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="total" sqlType="DECIMAL" precision="5" scale="2" nullable="false" jdbcType="3"/>
+      <column name="customer_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="create_date" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="order_number" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="status_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="voucher_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="last_update" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="order_id"/>
+      <foreign-key name="order_customer_fk" columns="customer_id" ref-table="customer" ref-schema="" ref-catalog="ecommerce" ref-columns="customer_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="order_status_fk" columns="status_id" ref-table="status" ref-schema="" ref-catalog="ecommerce" ref-columns="status_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="order_voucher_fk" columns="voucher_id" ref-table="voucher" ref-schema="" ref-catalog="ecommerce" ref-columns="voucher_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="order_product_order_fk" table="order_product" schema="" catalog="ecommerce" columns="order_id"/>
+      <index name="customer_fk_idx" unique="false" columns="customer_id"/>
+      <index name="status_fk_idx" unique="false" columns="status_id"/>
+      <index name="voucher_fk_idx" unique="false" columns="voucher_id"/>
+    </table>
+    <table name="order_product" schema="" catalog="ecommerce" type="TABLE">
+      <column name="order_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="product_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="quantity" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="order_id,product_id"/>
+      <foreign-key name="order_product_order_fk" columns="order_id" ref-table="order" ref-schema="" ref-catalog="ecommerce" ref-columns="order_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="order_product_product_fk" columns="product_id" ref-table="product" ref-schema="" ref-catalog="ecommerce" ref-columns="product_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="product_fk_idx" unique="false" columns="product_id"/>
+    </table>
+    <table name="payment_method" schema="" catalog="ecommerce" type="TABLE">
+      <column name="payment_method_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="number" sqlType="VARCHAR" precision="16" scale="0" nullable="false" jdbcType="12"/>
+      <column name="expiration_month" sqlType="VARCHAR" precision="2" scale="0" nullable="false" jdbcType="12"/>
+      <column name="expiration_year" sqlType="VARCHAR" precision="4" scale="0" nullable="false" jdbcType="12"/>
+      <column name="cardholder_name" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="customer_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="billing_address" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="type_payment_method_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="last_update" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="payment_method_id"/>
+      <foreign-key name="payment_method_address_fk" columns="billing_address" ref-table="address" ref-schema="" ref-catalog="ecommerce" ref-columns="address_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="payment_method_customer_fk" columns="customer_id" ref-table="customer" ref-schema="" ref-catalog="ecommerce" ref-columns="customer_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="payment_method_type_payment_method_fk" columns="type_payment_method_id" ref-table="type_payment_method" ref-schema="" ref-catalog="ecommerce" ref-columns="type_payment_method_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="address_fk_idx" unique="false" columns="billing_address"/>
+      <index name="customer_fk_idx" unique="false" columns="customer_id"/>
+      <index name="type_payment_method_fk_idx" unique="false" columns="type_payment_method_id"/>
+    </table>
+    <table name="product" schema="" catalog="ecommerce" type="TABLE">
+      <column name="product_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="code" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="price" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3"/>
+      <column name="provider_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="last_update" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="product_id"/>
+      <foreign-key name="product_provider_fk" columns="provider_id" ref-table="provider" ref-schema="" ref-catalog="ecommerce" ref-columns="provider_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="order_product_product_fk" table="order_product" schema="" catalog="ecommerce" columns="product_id"/>
+      <exported-key name="product_has_type_product_fk" table="product_has_type" schema="" catalog="ecommerce" columns="product_id"/>
+      <exported-key name="shopping_cart_product_product_fk" table="shopping_cart_product" schema="" catalog="ecommerce" columns="product_id"/>
+      <exported-key name="voucher_product_product_fk" table="voucher_product" schema="" catalog="ecommerce" columns="product_id"/>
+      <index name="provider_fk_idx" unique="false" columns="provider_id"/>
+    </table>
+    <table name="product_has_type" schema="" catalog="ecommerce" type="TABLE">
+      <column name="product_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="product_type_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="last_update" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="product_id,product_type_id"/>
+      <foreign-key name="product_has_type_product_fk" columns="product_id" ref-table="product" ref-schema="" ref-catalog="ecommerce" ref-columns="product_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="product_has_type_product_type_fk" columns="product_type_id" ref-table="product_type" ref-schema="" ref-catalog="ecommerce" ref-columns="product_type_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="product_type_fk_idx" unique="false" columns="product_type_id"/>
+    </table>
+    <table name="product_type" schema="" catalog="ecommerce" type="TABLE">
+      <column name="product_type_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="product_type_id"/>
+      <exported-key name="product_has_type_product_type_fk" table="product_has_type" schema="" catalog="ecommerce" columns="product_type_id"/>
+    </table>
+    <table name="provider" schema="" catalog="ecommerce" type="TABLE">
+      <column name="provider_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_updated" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="provider_id"/>
+      <exported-key name="product_provider_fk" table="product" schema="" catalog="ecommerce" columns="provider_id"/>
+    </table>
+    <table name="shopping_cart" schema="" catalog="ecommerce" type="TABLE">
+      <column name="shopping_cart_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="customer_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="last_update" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="shopping_cart_id"/>
+      <foreign-key name="shopping_cart_customer_fk" columns="customer_id" ref-table="customer" ref-schema="" ref-catalog="ecommerce" ref-columns="customer_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="shopping_cart_product_shopping_cart_fk" table="shopping_cart_product" schema="" catalog="ecommerce" columns="shopping_cart_id"/>
+      <index name="customer_fk_idx" unique="false" columns="customer_id"/>
+    </table>
+    <table name="shopping_cart_product" schema="" catalog="ecommerce" type="TABLE">
+      <column name="shopping_cart_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="product_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="quantity" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="shopping_cart_id,product_id"/>
+      <foreign-key name="shopping_cart_product_product_fk" columns="product_id" ref-table="product" ref-schema="" ref-catalog="ecommerce" ref-columns="product_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="shopping_cart_product_shopping_cart_fk" columns="shopping_cart_id" ref-table="shopping_cart" ref-schema="" ref-catalog="ecommerce" ref-columns="shopping_cart_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="product_fk_idx" unique="false" columns="product_id"/>
+    </table>
+    <table name="status" schema="" catalog="ecommerce" type="TABLE">
+      <column name="status_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="status_id"/>
+      <exported-key name="order_status_fk" table="order" schema="" catalog="ecommerce" columns="status_id"/>
+    </table>
+    <table name="store" schema="" catalog="ecommerce" type="TABLE">
+      <column name="store_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="address_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="store_id"/>
+      <foreign-key name="store_address_fk" columns="address_id" ref-table="address" ref-schema="" ref-catalog="ecommerce" ref-columns="address_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="address_fk_idx" unique="false" columns="address_id"/>
+    </table>
+    <table name="type_payment_method" schema="" catalog="ecommerce" type="TABLE">
+      <column name="type_payment_method_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="type_payment_method_id"/>
+      <exported-key name="payment_method_type_payment_method_fk" table="payment_method" schema="" catalog="ecommerce" columns="type_payment_method_id"/>
+    </table>
+    <table name="voucher" schema="" catalog="ecommerce" type="TABLE">
+      <column name="voucher_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="discount_percentage" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="voucher_type_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="last_update" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="voucher_id"/>
+      <foreign-key name="voucher_voucher_type_fk" columns="voucher_type_id" ref-table="voucher_type" ref-schema="" ref-catalog="ecommerce" ref-columns="voucher_type_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="order_voucher_fk" table="order" schema="" catalog="ecommerce" columns="voucher_id"/>
+      <exported-key name="voucher_product_voucher_fk" table="voucher_product" schema="" catalog="ecommerce" columns="voucher_id"/>
+      <index name="voucher_type_fk_idx" unique="false" columns="voucher_type_id"/>
+    </table>
+    <table name="voucher_product" schema="" catalog="ecommerce" type="TABLE">
+      <column name="voucher_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="product_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="voucher_id,product_id"/>
+      <foreign-key name="voucher_product_product_fk" columns="product_id" ref-table="product" ref-schema="" ref-catalog="ecommerce" ref-columns="product_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="voucher_product_voucher_fk" columns="voucher_id" ref-table="voucher" ref-schema="" ref-catalog="ecommerce" ref-columns="voucher_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="product_fk_idx" unique="false" columns="product_id"/>
+    </table>
+    <table name="voucher_type" schema="" catalog="ecommerce" type="TABLE">
+      <column name="voucher_type_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="voucher_type_id"/>
+      <exported-key name="voucher_voucher_type_fk" table="voucher" schema="" catalog="ecommerce" columns="voucher_type_id"/>
+    </table>
+  </data-source>
+</component>
